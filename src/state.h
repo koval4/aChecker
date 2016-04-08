@@ -10,7 +10,7 @@
 class State {
     public:
         using ptr = std::shared_ptr<State>;
-        using Iteratator = std::list<State>::iterator;
+        using Iteratator = std::list<State::ptr>::iterator;
 
     private:
         std::function<bool(char)> check;
