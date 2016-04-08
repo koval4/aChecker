@@ -16,12 +16,14 @@ SOURCES += \
     src/finitestateautomaton.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
-    src/state.cpp
+    src/state.cpp \
+    src/automatonreader.cpp
 
 HEADERS  += \
     src/finitestateautomaton.h \
     src/mainwindow.h \
-    src/state.h
+    src/state.h \
+    src/automatonreader.h
 
 FORMS    += \
     src/mainwindow.ui
