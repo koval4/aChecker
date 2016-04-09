@@ -13,6 +13,7 @@ class State {
         using Iteratator = std::list<State::ptr>::iterator;
 
     private:
+        std::string name;
         std::function<bool(char)> check;
         bool is_reading;
         bool is_error;
@@ -23,11 +24,19 @@ class State {
 
     public:
         State();
-        State( std::function<bool(char)> check
+        State( std::string name
              , bool is_reading = false
              , bool is_error = false
              , bool is_call = false
              );
+        State( std::string name
+             , std::function<bool(char)> check
+             , bool is_reading = false
+             , bool is_error = false
+             , bool is_call = false
+             );
+
+        std::string get_name() const;
 
         void set_jump_to(Iteratator jump_to);
 

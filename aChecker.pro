@@ -17,13 +17,15 @@ SOURCES += \
     src/main.cpp \
     src/mainwindow.cpp \
     src/state.cpp \
-    src/automatonreader.cpp
+    src/automatonreader.cpp \
+    src/automatonsregister.cpp
 
 HEADERS  += \
     src/finitestateautomaton.h \
     src/mainwindow.h \
     src/state.h \
-    src/automatonreader.h
+    src/automatonreader.h \
+    src/automatonsregister.h
 
 FORMS    += \
     src/mainwindow.ui

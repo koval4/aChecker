@@ -1,22 +1,41 @@
 #include "state.h"
 
 State::State()
-    : check()
+    : name()
+    , check()
     , is_reading(false)
     , is_error(false)
     , is_call(false)
     , jump_to() {}
 
-State::State(std::function<bool (char)> check
+State::State( std::string name
             , bool is_reading
             , bool is_error
             , bool is_call
             )
-    : check(check)
+    : name(name)
+    , check()
     , is_reading(is_reading)
     , is_error(is_error)
     , is_call(is_call)
     , jump_to() {}
+
+State::State( std::string name
+            , std::function<bool (char)> check
+            , bool is_reading
+            , bool is_error
+            , bool is_call
+            )
+    : name(name)
+    , check(check)
+    , is_reading(is_reading)
+    , is_error(is_error)
+    , is_call(is_call)
+    , jump_to() {}
+
+std::string State::get_name() const {
+    return name;
+}
 
 void State::set_jump_to(Iteratator jump_to) {
     this->jump_to = jump_to;
