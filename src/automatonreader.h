@@ -24,7 +24,7 @@ class AutomatonReader {
     public:
         AutomatonReader();
 
-        FiniteStateAutomaton read(std::string automaton_name, std::stringstream ss);
+        FiniteStateAutomaton read(std::string automaton_name, std::stringstream& ss);
 };
 
 #endif // AUTOMATONREADER_H

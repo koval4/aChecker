@@ -10,7 +10,7 @@
 
 AutomatonReader::AutomatonReader() {}
 
-FiniteStateAutomaton AutomatonReader::read(std::string automaton_name, std::stringstream ss) {
+FiniteStateAutomaton AutomatonReader::read(std::string automaton_name, std::stringstream& ss) {
     std::list<State::ptr> states;
     std::string state_name;
     std::string symbols;
@@ -19,7 +19,7 @@ FiniteStateAutomaton AutomatonReader::read(std::string automaton_name, std::stri
     bool is_reading;
     bool is_error;
     bool is_call;
-    while (ss) {
+    while (ss.rdbuf()->in_avail()) {
         // TODO: add checks and error handling in AutomatonReader
         ss >> state_name;
         ss >> symbols;
