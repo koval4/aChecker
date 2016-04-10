@@ -15,6 +15,11 @@ class MainWindow : public QMainWindow
         explicit MainWindow(QWidget *parent = 0);
         ~MainWindow();
 
+    private slots:
+        void on_parse_btn_clicked();
+
+        void on_actionOpen_Automaton_triggered();
+
     private:
         Ui::MainWindow *ui;
 };
