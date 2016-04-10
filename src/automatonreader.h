@@ -18,8 +18,19 @@ class AutomatonReader {
             State::ptr caller;          /// state that calls some automaton
         };
 
+        struct StateData {
+            std::string name;
+            std::string symbols;
+            std::string jump_name;
+            bool is_reading;
+            bool is_error;
+            bool is_call;
+        };
+
         std::map<std::string, State::Iteratator> jumps;
         std::list<Call> calls;
+
+        StateData read_state_data(std::stringstream& ss);
 
     public:
         AutomatonReader();

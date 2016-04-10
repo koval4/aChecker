@@ -1,5 +1,6 @@
-begin {
-    first_letter    [:letter:]  letter  true    true    false
-    letter          [:letter:]  letter  true    false   false
-    number          [:digit:]   number  true    false   false
+#   NAME            SYMBOLS     JUMP    IS_READING  IS_ERROR    IS_CALL
+def begin {
+    first_letter    [:letter:]  letter  true        true        false
+    letter          [:letter:]  letter  true        false       false
+    number          [:digit:]   number  true        false       false
 }

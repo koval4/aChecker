@@ -18,9 +18,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::on_parse_btn_clicked() {
-    QString line;
-    ui->input_edit->setPlainText(line);
-    AutomatonsRegister::inst().get("begin").run(line.toStdString());
+    AutomatonsRegister::inst().get("begin").run(ui->input_edit->toPlainText().toStdString());
 }
 
 void MainWindow::on_actionOpen_Automaton_triggered() {

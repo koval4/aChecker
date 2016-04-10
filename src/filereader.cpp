@@ -29,6 +29,11 @@ void FileReader::read() {
     std::string str;
     while (file.rdbuf()->in_avail()) {
         file >> str;
-        read_automaton(str);
+        if (str[0] == '#')
+            continue;
+        if (str == "def") {
+            file >> str;
+            read_automaton(str);
+        }
     }
 }
