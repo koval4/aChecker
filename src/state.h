@@ -38,7 +38,7 @@ class State {
 
         std::string get_name() const;
 
-        void set_jump_to(Iteratator jump_to);
+        void set_jump_to(const Iteratator& jump_to);
 
         void make_check_fn(std::string symbols);
 

@@ -34,11 +34,14 @@ FiniteStateAutomaton AutomatonReader::read(std::string automaton_name, std::stri
         State::ptr state { new State(state_name, is_reading, is_error, is_call) };
         state->make_check_fn(symbols);
         states.push_back(state);
-        State::Iteratator it = states.end()--;
+        State::Iteratator it = states.end();
+        it--;
         // if something is referring as jump this state => link it
         auto jump_from = jumps.find((state_name));
         if (jump_from != jumps.end()) {
-            (*(jump_from->second))->set_jump_to(it);
+            State::Iteratator jump_it = jump_from->second;
+            State::ptr jump = *jump_it;
+            jump->set_jump_to(it);
         }
         if (!is_call) {
             // making jump ref

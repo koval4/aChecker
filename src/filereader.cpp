@@ -9,9 +9,11 @@ FileReader::FileReader(std::string filename)
  : file(filename) {}
 
 void FileReader::read_automaton(std::string name) {
-    uint32_t brackets_count = 0;
-    char symbol;
+    uint32_t brackets_count = 1;
+    char symbol = 0;
     std::stringstream automaton_stream;
+    while (symbol != '{')
+        file.get(symbol);
     do {
         file.get(symbol);
         if (symbol == '{')

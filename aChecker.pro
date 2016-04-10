@@ -31,3 +31,6 @@ HEADERS  += \
 
 FORMS    += \
     src/mainwindow.ui
+
+DISTFILES += \
+    examples/identifier.txt

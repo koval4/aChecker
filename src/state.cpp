@@ -37,7 +37,7 @@ std::string State::get_name() const {
     return name;
 }
 
-void State::set_jump_to(Iteratator jump_to) {
+void State::set_jump_to(const Iteratator& jump_to) {
     this->jump_to = jump_to;
 }
 
