@@ -19,7 +19,8 @@ SOURCES += \
     src/state.cpp \
     src/automatonreader.cpp \
     src/automatonsregister.cpp \
-    src/filereader.cpp
+    src/filereader.cpp \
+    src/parseexception.cpp
 
 HEADERS  += \
     src/finitestateautomaton.h \
@@ -27,7 +28,8 @@ HEADERS  += \
     src/state.h \
     src/automatonreader.h \
     src/automatonsregister.h \
-    src/filereader.h
+    src/filereader.h \
+    src/parseexception.h
 
 FORMS    += \
     src/mainwindow.ui

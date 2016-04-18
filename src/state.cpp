@@ -42,6 +42,7 @@ void State::set_jump_to(Iterator jump_to) {
 }
 
 void State::make_check_fn(std::string symbols) {
+    expected = symbols;
     if (symbols == "[:digit:]")
         check = [] (char symbol) -> bool {
             return isdigit(symbol);
@@ -65,26 +66,28 @@ void State::make_check_fn(std::string symbols) {
         };
 }
 
-State::Iterator State::operator ()(std::string& line) {
+State::Iterator State::operator ()(std::string& line, size_t pos) {
     if (check(line[0])) {
-        if (is_reading)
+        if (is_reading) {
             line.erase(0, 1);
+            pos++;
+        }
         if (is_call) {
-            run_automaton(jump_to, line);
+            run_automaton(jump_to, line, pos);
             return Iterator();
         } else return jump_to;
     } else {
         if (is_error)
-            throw "ERROR!";
+            throw ParseException { line, expected, pos };
         return Iterator();
     }
 }
 
-void State::run_automaton(Iterator state_iter, std::string& line) {
+void State::run_automaton(Iterator state_iter, std::string& line, size_t pos) {
     auto end = Iterator();
     while ((*state_iter)->name != "end") {
         auto state = *state_iter;
-        auto next = (*state)(line);
+        auto next = (*state)(line, pos);
         if (next != end)
             state_iter = next;
         else state_iter++;

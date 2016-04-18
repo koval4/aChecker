@@ -6,6 +6,7 @@
 #include <memory>
 #include <functional>
 #include <iterator>
+#include "parseexception.h"
 
 class State {
     public:
@@ -20,7 +21,7 @@ class State {
         bool is_call;
         Iterator jump_to;
 
-        std::string error_msg;
+        std::string expected;
 
     public:
         State();
@@ -47,9 +48,9 @@ class State {
          * @param line -- line to check and process
          * @return -- ptr to next state (jump of nullptr for next in collection)
          */
-        Iterator operator () (std::string& line);
+        Iterator operator () (std::string& line, size_t pos);
 
-        void run_automaton(Iterator state_iter, std::string& line);
+        void run_automaton(Iterator state_iter, std::string& line, size_t pos);
 };
 
 #endif // STATE_H

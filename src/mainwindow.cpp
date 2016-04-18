@@ -32,7 +32,7 @@ void MainWindow::on_parse_btn_clicked() {
 }
 
 void MainWindow::on_actionOpen_Automaton_triggered() {
-    FileReader {
-        QFileDialog::getOpenFileName(this, "Open file with finite-state automaton", ".", "Text files (*.txt *.fsa)").toStdString()
-    }.read();
+    QString filename = QFileDialog::getOpenFileName(this, "Open file with finite-state automaton", ".", "Text files (*.txt *.fsa)");
+    if (!filename.isNull())
+        FileReader { filename.toStdString() }.read();
 }

@@ -1,4 +1,9 @@
 #include "finitestateautomaton.h"
+#include <memory>
+#include <list>
+#include <string>
+#include "state.h"
+#include "parseexception.h"
 
 FiniteStateAutomaton::FiniteStateAutomaton() {
 
@@ -28,5 +33,7 @@ void FiniteStateAutomaton::add_state(State::ptr state) {
 
 void FiniteStateAutomaton::run(std::string line) {
     auto state = *states.begin();
-    state->run_automaton(states.begin(), line);
+    state->run_automaton(states.begin(), line, 0);
+    if (!line.empty())
+        throw ParseException { line, "end of line", 0 };
 }
