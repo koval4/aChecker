@@ -37,7 +37,7 @@ std::string State::get_name() const {
     return name;
 }
 
-void State::set_jump_to(const Iteratator& jump_to) {
+void State::set_jump_to(Iterator jump_to) {
     this->jump_to = jump_to;
 }
 
@@ -65,26 +65,27 @@ void State::make_check_fn(std::string symbols) {
         };
 }
 
-State::Iteratator State::operator ()(std::string& line) {
+State::Iterator State::operator ()(std::string& line) {
     if (check(line[0])) {
         if (is_reading)
             line.erase(0, 1);
         if (is_call) {
             run_automaton(jump_to, line);
-            return Iteratator();
+            return Iterator();
         } else return jump_to;
     } else {
         if (is_error)
             throw "ERROR!";
-        return Iteratator();
+        return Iterator();
     }
 }
 
-void State::run_automaton(Iteratator state_iter, std::string& line) {
-    while (*state_iter) {
+void State::run_automaton(Iterator state_iter, std::string& line) {
+    auto end = Iterator();
+    while ((*state_iter)->name != "end") {
         auto state = *state_iter;
         auto next = (*state)(line);
-        if (*next)
+        if (next != end)
             state_iter = next;
         else state_iter++;
     }

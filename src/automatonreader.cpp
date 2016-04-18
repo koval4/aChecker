@@ -8,7 +8,8 @@
 #include "finitestateautomaton.h"
 #include "automatonsregister.h"
 
-AutomatonReader::AutomatonReader() {}
+AutomatonReader::AutomatonReader(FiniteStateAutomaton::ptr automaton)
+    : automaton(automaton) {}
 
 AutomatonReader::StateData AutomatonReader::read_state_data(std::stringstream& ss) {
     // TODO: add checks and error handling in AutomatonReader
@@ -27,18 +28,18 @@ AutomatonReader::StateData AutomatonReader::read_state_data(std::stringstream& s
     return data;
 }
 
-FiniteStateAutomaton AutomatonReader::read(std::string automaton_name, std::stringstream& ss) {
-    std::list<State::ptr> states;
+void AutomatonReader::read(std::stringstream& ss) {
+    std::list<State::ptr>& states = automaton->get_states();
     while (ss.rdbuf()->in_avail()) {
         StateData data = read_state_data(ss);
         State::ptr state { new State(data.name, data.is_reading, data.is_error, data.is_call) };
         state->make_check_fn(data.symbols);
         states.push_back(state);
-        State::Iteratator it = std::prev(states.end());
+        State::Iterator it = std::prev(states.end());
         // if something is referring as jump this state => link it
         auto jump_from = jumps.find(state->get_name());
         if (jump_from != jumps.end()) {
-            State::Iteratator jump_it = jump_from->second;
+            State::Iterator jump_it = jump_from->second;
             State::ptr jump = *jump_it;
             jump->set_jump_to(it);
         }
@@ -59,11 +60,9 @@ FiniteStateAutomaton AutomatonReader::read(std::string automaton_name, std::stri
             }
         } else {
             // making call
-            state->set_jump_to(AutomatonsRegister::inst().get(data.jump_name).get_begin());
+            state->set_jump_to(AutomatonsRegister::inst().get(data.jump_name)->get_begin());
         }
     }
 
     // TODO: add references check (jumps map must be empty at the end)
-
-    return { automaton_name, std::move(states) };
 }

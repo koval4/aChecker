@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QString>
 #include <QFileDialog>
+#include <QMessageBox>
 #include "filereader.h"
 #include "automatonsregister.h"
 
@@ -18,11 +19,20 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::on_parse_btn_clicked() {
-    AutomatonsRegister::inst().get("begin").run(ui->input_edit->toPlainText().toStdString());
+    try {
+        AutomatonsRegister::inst().get("begin")->run(ui->input_edit->toPlainText().toStdString());
+        ui->output_tb->append(QString("All is ok."));
+    } catch (std::exception& exc) {
+        QMessageBox::critical(this, "Error occured!", exc.what());
+    } catch (const char* msg) {
+        QMessageBox::critical(this, "Error occured!", QString(msg));
+    } catch (...) {
+        QMessageBox::critical(this, "Error occured!", "Unhandled exception catched!");
+    }
 }
 
 void MainWindow::on_actionOpen_Automaton_triggered() {
     FileReader {
-        QFileDialog::getOpenFileName(this, "Open file with finite-state automaton").toStdString()
+        QFileDialog::getOpenFileName(this, "Open file with finite-state automaton", ".", "Text files (*.txt *.fsa)").toStdString()
     }.read();
 }

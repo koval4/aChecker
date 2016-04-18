@@ -10,7 +10,7 @@
 class State {
     public:
         using ptr = std::shared_ptr<State>;
-        using Iteratator = std::list<State::ptr>::iterator;
+        using Iterator = std::list<State::ptr>::iterator;
 
     private:
         std::string name;
@@ -18,7 +18,7 @@ class State {
         bool is_reading;
         bool is_error;
         bool is_call;
-        Iteratator jump_to;
+        Iterator jump_to;
 
         std::string error_msg;
 
@@ -38,7 +38,7 @@ class State {
 
         std::string get_name() const;
 
-        void set_jump_to(const Iteratator& jump_to);
+        void set_jump_to(Iterator jump_to);
 
         void make_check_fn(std::string symbols);
 
@@ -47,9 +47,9 @@ class State {
          * @param line -- line to check and process
          * @return -- ptr to next state (jump of nullptr for next in collection)
          */
-        Iteratator operator () (std::string& line);
+        Iterator operator () (std::string& line);
 
-        void run_automaton(Iteratator state_iter, std::string& line);
+        void run_automaton(Iterator state_iter, std::string& line);
 };
 
 #endif // STATE_H

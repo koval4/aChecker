@@ -22,8 +22,8 @@ AutomatonsRegister& AutomatonsRegister::inst() {
 * @brief push -- moves automaton to database storage
 * @param automaton -- rvalue reference to automaton to push in database
 */
-void AutomatonsRegister::push(FiniteStateAutomaton&& automaton) {
-    automatons.insert({ automaton.get_name(), automaton });
+void AutomatonsRegister::push(FiniteStateAutomaton::ptr automaton) {
+    automatons.insert({ automaton->get_name(), automaton });
 }
 
 /**
@@ -31,6 +31,6 @@ void AutomatonsRegister::push(FiniteStateAutomaton&& automaton) {
 * @param name -- name of automaton to access
 * @return -- automaton with given name
 */
-FiniteStateAutomaton& AutomatonsRegister::get(std::string name) {
+FiniteStateAutomaton::ptr AutomatonsRegister::get(std::string name) {
     return automatons.at(name);
 }

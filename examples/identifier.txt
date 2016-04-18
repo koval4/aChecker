@@ -3,4 +3,5 @@ def begin {
     first_letter    [:letter:]  letter  true        true        false
     letter          [:letter:]  letter  true        false       false
     number          [:digit:]   number  true        false       false
+    end             [:any:]     end     false       false       false
 }

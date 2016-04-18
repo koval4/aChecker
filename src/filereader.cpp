@@ -22,7 +22,8 @@ void FileReader::read_automaton(std::string name) {
             brackets_count--;
         else automaton_stream << symbol;
     } while (brackets_count > 0);
-    AutomatonsRegister::inst().push(AutomatonReader().read(name, automaton_stream));
+    AutomatonsRegister::inst().push(FiniteStateAutomaton::ptr{ new FiniteStateAutomaton { name, {} } });
+    AutomatonReader(AutomatonsRegister::inst().get(name)).read(automaton_stream);
 }
 
 void FileReader::read() {

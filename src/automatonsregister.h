@@ -1,7 +1,7 @@
 #ifndef AUTOMATONSREGISTER_H
 #define AUTOMATONSREGISTER_H
 
-#include <map>
+#include <unordered_map>
 #include <string>
 #include "state.h"
 #include "finitestateautomaton.h"
@@ -13,7 +13,7 @@
 class AutomatonsRegister {
     private:
         /// Automaton name used as a key
-        std::map<std::string, FiniteStateAutomaton> automatons;
+        std::unordered_map<std::string, FiniteStateAutomaton::ptr> automatons;
 
         // hiding constructor for singleton realization
         AutomatonsRegister();
@@ -30,13 +30,13 @@ class AutomatonsRegister {
          * @brief push -- moves automaton to database storage
          * @param automaton -- rvalue reference to automaton to push in database
          */
-        void push(FiniteStateAutomaton&& automaton);
+        void push(FiniteStateAutomaton::ptr automaton);
         /**
          * @brief get -- provides access to automaton by it's name
          * @param name -- name of automaton to access
          * @return -- automaton with given name
          */
-        FiniteStateAutomaton& get(std::string name);
+        FiniteStateAutomaton::ptr get(std::string name);
 };
 
 #endif // AUTOMATONSREGISTER_H

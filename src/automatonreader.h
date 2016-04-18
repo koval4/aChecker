@@ -27,15 +27,16 @@ class AutomatonReader {
             bool is_call;
         };
 
-        std::map<std::string, State::Iteratator> jumps;
+        FiniteStateAutomaton::ptr automaton;
+        std::map<std::string, State::Iterator> jumps;
         std::list<Call> calls;
 
         StateData read_state_data(std::stringstream& ss);
 
     public:
-        AutomatonReader();
+        AutomatonReader(FiniteStateAutomaton::ptr automaton);
 
-        FiniteStateAutomaton read(std::string automaton_name, std::stringstream& ss);
+        void read(std::stringstream& ss);
 };
 
 #endif // AUTOMATONREADER_H
