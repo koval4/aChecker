@@ -1,4 +1,10 @@
 #include "state.h"
+#include <string>
+#include <list>
+#include <memory>
+#include <functional>
+#include <iterator>
+#include "parseexception.h"
 
 State::State()
     : name()
@@ -61,7 +67,7 @@ void State::make_check_fn(std::string symbols) {
             return true;
         };
     else
-        check = [&symbols] (char symbol) -> bool {
+        check = [symbols] (char symbol) -> bool {
             return symbols.find(symbol) != std::string::npos;
         };
 }
@@ -83,7 +89,7 @@ State::Iterator State::operator ()(std::string& line, size_t pos) {
     }
 }
 
-void State::run_automaton(Iterator state_iter, std::string& line, size_t pos) {
+void State::run_automaton(Iterator state_iter, std::string& line, size_t& pos) {
     auto end = Iterator();
     while ((*state_iter)->name != "end") {
         auto state = *state_iter;

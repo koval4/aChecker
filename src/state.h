@@ -50,7 +50,7 @@ class State {
          */
         Iterator operator () (std::string& line, size_t pos);
 
-        void run_automaton(Iterator state_iter, std::string& line, size_t pos);
+        void run_automaton(Iterator state_iter, std::string& line, size_t& pos);
 };
 
 #endif // STATE_H

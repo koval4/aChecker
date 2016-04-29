@@ -33,7 +33,8 @@ void FiniteStateAutomaton::add_state(State::ptr state) {
 
 void FiniteStateAutomaton::run(std::string line) {
     auto state = *states.begin();
-    state->run_automaton(states.begin(), line, 0);
+    size_t pos = 0;
+    state->run_automaton(states.begin(), line, pos);
     if (!line.empty())
         throw ParseException { line, "end of line", 0 };
 }

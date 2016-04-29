@@ -28,7 +28,7 @@ void FileReader::read_automaton(std::string name) {
 
 void FileReader::read() {
     std::string str;
-    while (file.rdbuf()->in_avail()) {
+    while (file) {
         file >> str;
         if (str[0] == '#')
             continue;

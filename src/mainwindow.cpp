@@ -22,10 +22,10 @@ void MainWindow::on_parse_btn_clicked() {
     try {
         AutomatonsRegister::inst().get("begin")->run(ui->input_edit->toPlainText().toStdString());
         ui->output_tb->append(QString("All is ok."));
+    } catch (ParseException& exc) {
+        ui->output_tb->append(QString(exc.what()));
     } catch (std::exception& exc) {
         QMessageBox::critical(this, "Error occured!", exc.what());
-    } catch (const char* msg) {
-        QMessageBox::critical(this, "Error occured!", QString(msg));
     } catch (...) {
         QMessageBox::critical(this, "Error occured!", "Unhandled exception catched!");
     }
